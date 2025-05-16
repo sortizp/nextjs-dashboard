@@ -4,7 +4,7 @@
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 
 // User object structure
-const User = {
+export const User = {
   id: '',
   name: '',
   email: '',
@@ -12,7 +12,7 @@ const User = {
 };
 
 // Customer object structure
-const Customer = {
+export const Customer = {
   id: '',
   name: '',
   email: '',
@@ -20,7 +20,7 @@ const Customer = {
 };
 
 // Invoice object structure
-const Invoice = {
+export const Invoice = {
   id: '',
   customer_id: '',
   amount: 0,
@@ -29,13 +29,13 @@ const Invoice = {
 };
 
 // Revenue object structure
-const Revenue = {
+export const Revenue = {
   month: '',
   revenue: 0,
 };
 
 // LatestInvoice object structure
-const LatestInvoice = {
+export const LatestInvoice = {
   id: '',
   name: '',
   image_url: '',
@@ -45,13 +45,13 @@ const LatestInvoice = {
 
 // LatestInvoiceRaw object structure. 
 // The database returns a number for amount, but we later format it to a string with the formatCurrency function
-const LatestInvoiceRaw = {
+export const LatestInvoiceRaw = {
   ...LatestInvoice,
   amount: 0, // Amount as a number
 };
 
 // InvoicesTable object structure
-const InvoicesTable = {
+export const InvoicesTable = {
   id: '',
   customer_id: '',
   name: '',
@@ -63,7 +63,7 @@ const InvoicesTable = {
 };
 
 // CustomersTableType object structure
-const CustomersTableType = {
+export const CustomersTableType = {
   id: '',
   name: '',
   email: '',
@@ -74,7 +74,7 @@ const CustomersTableType = {
 };
 
 // FormattedCustomersTable object structure
-const FormattedCustomersTable = {
+export const FormattedCustomersTable = {
   id: '',
   name: '',
   email: '',
@@ -85,13 +85,13 @@ const FormattedCustomersTable = {
 };
 
 // CustomerField object structure
-const CustomerField = {
+export const CustomerField = {
   id: '',
   name: '',
 };
 
 // InvoiceForm object structure
-const InvoiceForm = {
+export const InvoiceForm = {
   id: '',
   customer_id: '',
   amount: 0,
