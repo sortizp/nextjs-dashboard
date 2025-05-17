@@ -6,17 +6,15 @@ import {
   KeyIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
+import { PencilIcon, ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
 import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-
-
-export default function LoginForm() {
-   const searchParams = useSearchParams();
+export default function SignupForm() {
+  const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
@@ -27,7 +25,7 @@ export default function LoginForm() {
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
-          Please log in to continue.
+          Sign Up
         </h1>
         <div className="w-full">
           <div>
@@ -62,7 +60,7 @@ export default function LoginForm() {
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Enter password"
+                placeholder="Create your password"
                 required
                 minLength={6}
               />
@@ -71,10 +69,11 @@ export default function LoginForm() {
           </div>
         </div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
-        <LoginButton aria-disabled={isPending} />
-        <span className="text-sm text-gray-500">Forgot password?
-          <Link href="/forgot-password" className="text-blue-600 hover:underline cursor-pointer"> Reset it now</Link>
+        <SignupButton aria-disabled={isPending} />
+        <span className="text-sm text-gray-500">Already have an account? 
+          <Link href="/login" className="text-blue-600 hover:underline cursor-pointer">  Log in</Link>
         </span>
+        {/* Add form errors here */}
         <div className="flex h-8 items-end space-x-1"
           aria-live="polite"
           aria-atomic="true"
@@ -96,6 +95,14 @@ function LoginButton() {
   return (
     <Button className="mt-4 w-full">
       Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+    </Button>
+  );
+}
+
+function SignupButton() {
+  return (
+    <Button className="mt-4 w-full">
+      Sign up <PencilIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
 }
