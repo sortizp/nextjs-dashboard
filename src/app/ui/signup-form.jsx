@@ -103,10 +103,10 @@ export default function SignupForm() {
           aria-atomic="true"
           >
           {/* Add form errors here */}
-          {errorMessage?.message && (
+          {errorMessage && (
             <>
               <ExclamationCircleIcon className='h-5 w-5 text-red-500' />
-              <p className="text-sm text-red-500">{errorMessage?.message}</p>
+              <p className="text-sm text-red-500">{errorMessage}</p>
             </>
           )}
         </div>
