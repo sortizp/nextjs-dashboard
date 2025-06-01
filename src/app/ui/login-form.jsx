@@ -72,8 +72,7 @@ export default function LoginForm() {
         </div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
         <LoginButton aria-disabled={isPending} />
-        <span className="text-sm text-gray-500">Forgot password?
-          <Link href="/forgot-password" className="text-blue-600 hover:underline cursor-pointer"> Reset it now</Link>
+        <span className="text-sm text-gray-500">Forgot password? <Link href="/forgot-password" className="text-blue-600 hover:underline cursor-pointer">Reset it now</Link>
         </span>
         <div className="flex h-8 items-end space-x-1"
           aria-live="polite"
@@ -94,7 +93,7 @@ export default function LoginForm() {
 
 function LoginButton() {
   return (
-    <Button className="mt-4 w-full">
+    <Button className="mt-4 w-full bg-green-500 hover:bg-green-600">
       Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );

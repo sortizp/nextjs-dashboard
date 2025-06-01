@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '/auth';
 import { AuthError } from 'next-auth';
+import bcrypt from 'bcryptjs';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -97,5 +98,54 @@ export async function deleteInvoice(id) {
     return {
       message: 'Database Error: Failed to Delete Invoice.',
     };
+  }
+}
+
+export async function newUserSignUp(prevState, formData) {
+  try {
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const name = formData.get('name');
+    console.log(name, email, password);
+
+    if (!email || !password) {
+      return { message: 'Please fill in all fields.' };
+    }
+
+    // Check if user already exists
+    const existingUser = await sql`
+      SELECT * FROM users WHERE email = ${email}
+    `;
+
+    if (existingUser.rows.length > 0) {
+      return { message: 'User already exists.' };
+    }
+
+    // Hash the password
+    if (!password || password.length < 6) {
+      return { message: 'Password must be at least 6 characters long.' };
+    }
+
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Insert new user into the database and insert random id
+    console.log(name, email, hashedPassword);
+    await sql`
+      INSERT INTO users (id, name, email, password)
+      VALUES (gen_random_uuid(), ${name}, ${email}, ${hashedPassword})
+    `;
+
+    revalidatePath('/dashboard');
+    redirect('/dashboard');
+    
+  } catch (error) {// Only log if not a NEXT_REDIRECT
+    if (error.digest !== 'NEXT_REDIRECT') {
+      console.error('Error creating user:', error);
+      return { message: 'Database Error: Failed to Create User.' };
+    }
+    return {
+      message: 'Failed to Create User.',
+    }
   }
 }
