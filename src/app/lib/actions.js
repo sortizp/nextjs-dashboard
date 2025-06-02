@@ -139,13 +139,13 @@ export async function newUserSignUp(prevState, formData) {
     revalidatePath('/dashboard');
     redirect('/dashboard');
     
-  } catch (error) {// Only log if not a NEXT_REDIRECT
-    if (error.digest !== 'NEXT_REDIRECT') {
-      console.error('Error creating user:', error);
-      return { message: 'Database Error: Failed to Create User.' };
+  } catch (error) {
+    // Instead of checking error.digest === NEXT_REDIRECT, use (recommended by Next.js) is to simply re-throw any error where error.digest is truthy, since only Next.js internal errors (like redirect) have this property:
+    if (error.digest) {
+      throw error;
     }
-    return {
-      message: 'Failed to Create User.',
-    }
+    // only log and return for real errors
+    console.error('Error creating user:', error);
+    return { message: 'Failed to Create User.' };
   }
 }

@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 # local placeholder-data
-src/app/lib/placeholder-data.js
+/src/app/lib/placeholder-data.js
